@@ -33,4 +33,14 @@ public class StudentDao extends BaseDao{
         }
         return -1;
     }
+
+    public int findStudentIdByName(String name) throws SQLException {
+        int studentId = 0;
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(String.format("select id from student where name = '%s'", name));
+        while (resultSet.next()){
+            studentId = resultSet.getInt("id");
+        }
+        return studentId;
+    }
 }
