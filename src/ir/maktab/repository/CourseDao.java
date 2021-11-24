@@ -1,9 +1,6 @@
 package ir.maktab.repository;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 /**
  * @author Mahsa Alikhani m-58
@@ -23,5 +20,18 @@ public class CourseDao extends BaseDao{
             isEmpty = false;
         }
         return isEmpty;
+    }
+
+    public int saveNewCourse(String courseName, Timestamp timestamp) throws SQLException {
+        String sqlQuery = "insert into course (name, timestamp) values (?, ?)";
+        PreparedStatement statement = connection.prepareStatement(sqlQuery, Statement.RETURN_GENERATED_KEYS);
+        statement.setString(1, courseName);
+        statement.setTimestamp(2, timestamp);
+        statement.executeUpdate();
+        ResultSet autoKey = statement.getGeneratedKeys();
+        while (autoKey.next()){
+            return autoKey.getInt(1);
+        }
+        return -1;
     }
 }
