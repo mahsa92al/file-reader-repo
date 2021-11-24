@@ -19,7 +19,7 @@ public class StudentCourseRatingDao extends BaseDao{
     public boolean findRatingsById(int studentId, int courseId) throws SQLException {
         boolean isEmpty = true;
         Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery(String.format("select course_id from course" +
+        ResultSet resultSet = statement.executeQuery(String.format("select course_id from student_course_rating" +
                 " where student_id = %d and course_id = %d", studentId, courseId));
         while (resultSet.next()){
             isEmpty = false;
