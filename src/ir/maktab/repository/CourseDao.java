@@ -34,4 +34,14 @@ public class CourseDao extends BaseDao{
         }
         return -1;
     }
+
+    public int findCourseIdByName(String courseName) throws SQLException {
+        int courseId = 0;
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(String.format("select id from course where name = '%s'", courseName));
+        while (resultSet.next()){
+            courseId = resultSet.getInt("id");
+        }
+        return courseId;
+    }
 }
