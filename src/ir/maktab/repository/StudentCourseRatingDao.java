@@ -31,10 +31,11 @@ public class StudentCourseRatingDao extends BaseDao{
         String sqlQuery = "insert into student_course_rating (student_id, course_id, comment, rate)" +
                 "values (?, ?, ?, ?)";
         PreparedStatement statement = connection.prepareStatement(sqlQuery);
-        statement.setInt(1, courseId);
-        statement.setInt(2, studentId);
+        statement.setInt(1, studentId);
+        statement.setInt(2, courseId);
         statement.setString(3, comment);
         statement.setDouble(4, rating);
-        statement.executeUpdate();
+        int i = statement.executeUpdate();
+        System.out.println(i);
     }
 }
