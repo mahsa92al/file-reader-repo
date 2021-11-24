@@ -27,4 +27,14 @@ public class StudentCourseRatingDao extends BaseDao{
         return isEmpty;
     }
 
+    public void saveNewRateAndComment(int courseId, int studentId, Double rating, String comment) throws SQLException {
+        String sqlQuery = "insert into student_course_rating (student_id, course_id, comment, rate)" +
+                "values (?, ?, ?, ?)";
+        PreparedStatement statement = connection.prepareStatement(sqlQuery);
+        statement.setInt(1, courseId);
+        statement.setInt(2, studentId);
+        statement.setString(3, comment);
+        statement.setDouble(4, rating);
+        statement.executeUpdate();
+    }
 }
