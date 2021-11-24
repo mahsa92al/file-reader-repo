@@ -16,9 +16,11 @@ public class CourseService {
     }
 
     public int setNewCourse(String courseName, String timestamp) throws SQLException {
-        int courseId = 0;
+        int courseId;
         if(courseDao.findCourseByName(courseName)){
             courseId = courseDao.saveNewCourse(courseName, Timestamp.valueOf(timestamp));
+        }else {
+            courseId = courseDao.findCourseIdByName(courseName);
         }
         return courseId;
     }
