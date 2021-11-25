@@ -1,5 +1,7 @@
 package ir.maktab.repository;
 
+import ir.maktab.model.Course;
+
 import java.sql.*;
 
 /**
@@ -12,14 +14,17 @@ public class CourseDao extends BaseDao{
         connection = BaseDao.getConnection();
     }
 
-    public boolean findCourseByName(String courseName) throws SQLException {
-        boolean isEmpty = true;
+    public Course findCourseByName(String courseName) throws SQLException {
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(String.format("select * from course where name = '%s'", courseName));
         while (resultSet.next()){
-            isEmpty = false;
+            Course course = new Course();
+            course.setId(resultSet.getInt("id"));
+            course.setName(resultSet.getString("name"));
+            course.setTimestamp(resultSet.getTimestamp("timestamp"));
+            return course;
         }
-        return isEmpty;
+        return null;
     }
 
     public int saveNewCourse(String courseName, Timestamp timestamp) throws SQLException {
@@ -33,15 +38,5 @@ public class CourseDao extends BaseDao{
             return autoKey.getInt(1);
         }
         return -1;
-    }
-
-    public int findCourseIdByName(String courseName) throws SQLException {
-        int courseId = 0;
-        Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery(String.format("select id from course where name = '%s'", courseName));
-        while (resultSet.next()){
-            courseId = resultSet.getInt("id");
-        }
-        return courseId;
     }
 }
