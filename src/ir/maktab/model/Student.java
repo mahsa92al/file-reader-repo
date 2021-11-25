@@ -7,9 +7,16 @@ import java.util.List;
  * @author Mahsa Alikhani m-58
  */
 public class Student {
+    private int id;
     private String fullName;
-    List<Course> courses = new ArrayList<>();
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getFullName() {
         return fullName;
@@ -17,13 +24,5 @@ public class Student {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
-    }
-
-    public List<Course> getCourses() {
-        return courses;
-    }
-
-    public void setCourses(List<Course> courses) {
-        this.courses = courses;
     }
 }
