@@ -1,5 +1,6 @@
 package ir.maktab.service;
 
+import ir.maktab.model.Student;
 import ir.maktab.repository.StudentDao;
 
 import java.sql.SQLException;
@@ -17,10 +18,11 @@ public class StudentService {
 
     public int setNewStudent(String name) throws SQLException {
         int studentId;
-        if(studentDao.findStudentByName(name)){
+        Student student = studentDao.findStudentByName(name);
+        if(student == null){
             studentId = studentDao.saveNewStudent(name);
         }else {
-            studentId = studentDao.findStudentIdByName(name);
+            studentId = student.getId();
         }
         return studentId;
     }
